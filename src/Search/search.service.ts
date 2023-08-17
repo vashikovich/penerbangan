@@ -16,7 +16,7 @@ export class SearchService {
     const result = await this.flightInventoryModel.find({
       origin: input.origin,
       destination: input.destination,
-      datetime: {
+      departure: {
         $gte: moment(input.date).format(),
         $lt: moment(input.date).add(1, 'day').format(),
       },

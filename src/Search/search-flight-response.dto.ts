@@ -6,7 +6,8 @@ export class SearchFlightResponseDto {
   id: number;
   o: string;
   d: string;
-  dt: Date;
+  dp: Date;
+  ar: Date;
   a: string;
   p: number;
 }

@@ -2,7 +2,8 @@ export class SearchFlightResultDto {
   id: number;
   origin: string;
   destination: string;
-  datetime: Date;
+  departure: Date;
+  arrival: Date;
   airline: string;
   price: number;
 }

@@ -15,7 +15,10 @@ export class FlightInventory {
   destination: string;
 
   @Prop()
-  datetime: Date;
+  departure: Date;
+
+  @Prop()
+  arrival: Date;
 
   @Prop()
   airline: string;
