@@ -1,5 +1,5 @@
-export class SearchFlightDto {
-  constructor(init: Partial<SearchFlightDto>) {
+export class SearchFlightQueryDto {
+  constructor(init: Partial<SearchFlightQueryDto>) {
     Object.assign(this, init);
   }
 

@@ -15,5 +15,6 @@ import {
   ],
   controllers: [SearchController],
   providers: [SearchService],
+  exports: [MongooseModule],
 })
 export class SearchModule {}
