@@ -1,10 +1,9 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { BookingResultDto } from './booking-result.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Booking } from './booking.schema';
 import { Model } from 'mongoose';
 import { BookingFormDto, Passenger } from './booking-form.dto';
-import { SearchService } from 'src/Search/search.service';
 import { FlightInventory } from 'src/Search/flight-inventory.schema';
 
 @Injectable()
@@ -13,7 +12,6 @@ export class BookingService {
     @InjectModel(Booking.name) private bookingModel: Model<Booking>,
     @InjectModel(FlightInventory.name)
     private flightInventoryModel: Model<FlightInventory>,
-    @Inject(SearchService) private searchService: SearchService,
   ) {}
 
   async bookFlight(form: BookingFormDto): Promise<BookingResultDto> {
@@ -29,7 +27,7 @@ export class BookingService {
       })),
       paymentTotal: await this.calcTotalPrice(form.flightId, form.passengers),
     });
-    const saved = (await this.bookingModel.create([booking]))[0];
+    const saved = await this.bookingModel.create(booking);
     const result = saved as BookingResultDto;
 
     return result;
@@ -37,7 +35,7 @@ export class BookingService {
 
   async calcTotalPrice(flightId: number, passengers: Passenger[]) {
     const flightInventory = await this.flightInventoryModel.findOne({
-      flightId: flightId,
+      id: flightId,
     });
     const count = passengers.filter((p) => p.type !== 'INFANT').length;
     const totalPrice = count * flightInventory.price;

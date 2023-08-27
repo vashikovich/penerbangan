@@ -1,4 +1,4 @@
-import { Controller, Post } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { BookingService } from './booking.service';
 import { BookingRequestDto, PassengerRequest } from './booking-request.dto';
 import { BookingResponseDto } from './booking-response..dto';
@@ -9,7 +9,9 @@ export class BookingController {
   constructor(private readonly bookingService: BookingService) {}
 
   @Post()
-  async bookFlight(req: BookingRequestDto): Promise<BookingResponseDto> {
+  async bookFlight(
+    @Body() req: BookingRequestDto,
+  ): Promise<BookingResponseDto> {
     const form = new BookingFormDto({
       flightId: req.fid,
       contactName: req.cn,

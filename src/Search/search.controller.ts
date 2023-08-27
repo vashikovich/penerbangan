@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { SearchService } from './search.service';
 import { SearchFlightRequestDto } from './search-flight-request.dto';
 import { SearchFlightQueryDto } from './search-flight-query.dto';
@@ -10,15 +10,15 @@ export class SearchController {
 
   @Get()
   async searchFlight(
-    req: SearchFlightRequestDto,
+    @Query() q: SearchFlightRequestDto,
   ): Promise<SearchFlightResponseDto[]> {
     const query = new SearchFlightQueryDto({
-      origin: req.o,
-      destination: req.d,
-      date: req.dt,
-      adultCount: req.a,
-      childCount: req.c,
-      infantCount: req.i,
+      origin: q.o,
+      destination: q.d,
+      date: q.dt,
+      adultCount: q.a,
+      childCount: q.c,
+      infantCount: q.i,
     });
 
     const result = await this.searchService.searchFlight(query);

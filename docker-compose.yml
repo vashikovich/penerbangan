@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  penerbangan:
+    image: penerbangan
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      - MONGO_CONNSTRING=mongodb://mongo:27017/node-boilerplate
+    ports:
+      - 3003:3003
+  mongo:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    volumes:
+      - dbdata:/data/db
+
+volumes:
+  dbdata:
